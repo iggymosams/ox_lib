@@ -17,7 +17,34 @@ const useStyles = createStyles((theme, params: { canClose?: boolean }) => ({
     height: 'auto',
     textAlign: 'center',
     justifyContent: 'center',
+    background: 'rgba(186, 81, 84, 0.60)',
+    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+    // backdropFilter: 'blur(5.6px)',
+    border: ' 1px solid rgba(186, 81, 84, 0.85);',
     padding: 2,
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: 'rgba(206, 49, 54, 0.60)',
+      opacity: 0,
+      transition: 'opacity 0.3s ease',
+      borderRadius: 4,
+    },
+
+    '&:hover': {
+      '&::before': {
+        opacity: 1,
+      },
+    },
+
+    '& > *': {
+      position: 'relative',
+      zIndex: 1,
+    },
   },
   root: {
     border: 'none',

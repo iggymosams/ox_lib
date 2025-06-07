@@ -8,6 +8,7 @@ import ReactMarkdown from 'react-markdown';
 import HeaderButton from './components/HeaderButton';
 import ScaleFade from '../../../transitions/ScaleFade';
 import MarkdownComponents from '../../../config/MarkdownComponents';
+import SlideFade from '../../../transitions/SlideFade';
 
 const openMenu = (id: string | undefined) => {
   fetchNui<ContextMenuProps>('openContext', { id: id, back: true });
@@ -17,23 +18,42 @@ const useStyles = createStyles((theme) => ({
   container: {
     position: 'absolute',
     top: '15%',
-    right: '25%',
+    right: '5%',
     width: 320,
     height: 580,
+    zIndex: 112,
+  },
+  gradientOverlay: {
+    content: '""',
+    position: 'fixed',
+    top: 0,
+    right: 0,
+    bottom: 0,
+    left: 0,
+    // background:
+    //   'linear-gradient(to right, rgba(133,133,133,0.10) 50%, rgba(133, 133, 133, 0.10) 12%, rgba(43, 44, 54, 0.75) 100%)', // Semi-transparent black gradient from right to left
+    zIndex: 3,
+    display: 'none', // Initially hide the overlay
+  },
+  gradientOverlayVisible: {
+    display: 'block', // Show the overlay when the menu is visible
   },
   header: {
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 10,
+    marginBottom: 20,
     gap: 6,
   },
   titleContainer: {
     borderRadius: 4,
     flex: '1 85%',
-    backgroundColor: theme.colors.dark[6],
+    background: 'rgba(63, 63, 63, 0.4)',
+    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+    // backdropFilter: 'blur(5px)',
+    border: '1px solid rgba(63, 63, 63, 0.85)',
   },
   titleText: {
-    color: theme.colors.dark[0],
+    color: 'white',
     padding: 6,
     textAlign: 'center',
   },
@@ -85,28 +105,31 @@ const ContextMenu: React.FC = () => {
   });
 
   return (
-    <Box className={classes.container}>
-      <ScaleFade visible={visible}>
-        <Flex className={classes.header}>
-          {contextMenu.menu && (
-            <HeaderButton icon="chevron-left" iconSize={16} handleClick={() => openMenu(contextMenu.menu)} />
-          )}
-          <Box className={classes.titleContainer}>
-            <Text className={classes.titleText}>
-              <ReactMarkdown components={MarkdownComponents}>{contextMenu.title}</ReactMarkdown>
-            </Text>
+    <>
+      <Box className={`${classes.gradientOverlay} ${visible ? classes.gradientOverlayVisible : ''}`} />
+      <Box className={classes.container}>
+        <SlideFade visible={visible}>
+          <Flex className={classes.header}>
+            {contextMenu.menu && (
+              <HeaderButton icon="chevron-left" iconSize={16} handleClick={() => openMenu(contextMenu.menu)} />
+            )}
+            <Box className={classes.titleContainer}>
+              <Text className={classes.titleText}>
+                <ReactMarkdown components={MarkdownComponents}>{contextMenu.title}</ReactMarkdown>
+              </Text>
+            </Box>
+            <HeaderButton icon="xmark" canClose={contextMenu.canClose} iconSize={18} handleClick={closeContext} />
+          </Flex>
+          <Box className={classes.buttonsContainer}>
+            <Stack className={classes.buttonsFlexWrapper}>
+              {Object.entries(contextMenu.options).map((option, index) => (
+                <ContextButton option={option} key={`context-item-${index}`} />
+              ))}
+            </Stack>
           </Box>
-          <HeaderButton icon="xmark" canClose={contextMenu.canClose} iconSize={18} handleClick={closeContext} />
-        </Flex>
-        <Box className={classes.buttonsContainer}>
-          <Stack className={classes.buttonsFlexWrapper}>
-            {Object.entries(contextMenu.options).map((option, index) => (
-              <ContextButton option={option} key={`context-item-${index}`} />
-            ))}
-          </Stack>
-        </Box>
-      </ScaleFade>
-    </Box>
+        </SlideFade>
+      </Box>
+    </>
   );
 };
 

@@ -6,7 +6,7 @@ const useStyles = createStyles((theme) => ({
     alignItems: 'center',
   },
   input: {
-    backgroundColor: theme.colors.dark[7],
+    background: 'radial-gradient(circle, rgba(255, 255, 255, 0.1) 0%, rgba(72, 72, 86, 0.877) 100%)',
     '&:checked': { backgroundColor: theme.colors.dark[2], borderColor: theme.colors.dark[2] },
   },
   inner: {

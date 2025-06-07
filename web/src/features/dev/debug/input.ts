@@ -22,6 +22,7 @@ export const debugInput = () => {
           },
           { type: 'checkbox', label: 'Some checkbox' },
           { type: 'input', label: 'Locker PIN', password: true, icon: 'lock' },
+          { type: 'date-range', label: 'Locker PIN', icon: 'lock' },
           { type: 'checkbox', label: 'Some other checkbox', checked: true },
           {
             type: 'select',

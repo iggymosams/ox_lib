@@ -21,35 +21,67 @@ const useStyles = createStyles((theme, params: { disabled?: boolean; readOnly?: 
   },
   label: {
     width: '100%',
-    color: params.disabled ? theme.colors.dark[3] : theme.colors.dark[0],
+    color: params.disabled ? '#C1C2C5' : 'white',
     whiteSpace: 'pre-wrap',
   },
   button: {
     height: 'fit-content',
     width: '100%',
     padding: 10,
-    '&:hover': {
-      backgroundColor: params.readOnly ? theme.colors.dark[6] : undefined,
-      cursor: params.readOnly ? 'unset' : 'pointer',
+    position: 'relative',
+    background: 'rgba(63, 63, 63, 0.5)',
+    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+    // backdropFilter: 'blur(5px)',
+    border: '1px solid rgba(63, 63, 63, 0.85)',
+    overflow: 'hidden',
+
+    '&:disabled': {
+      background: 'linear-gradient(101deg, rgba(132,22,173,.6) 0%, rgba(102,22,173,.6) 100%);',
+      border: 'calc(0.092592592vh * 1.4) solid rgba(255, 255, 255, 0.15)',
     },
-    '&:active': {
-      transform: params.readOnly ? 'unset' : undefined,
+
+    '&::before': {
+      content: '""',
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      right: 0,
+      bottom: 0,
+      background: 'linear-gradient(101deg, rgba(132,22,173,0.8) 0%, rgba(102,22,173,0.8) 100%);',
+      opacity: 0,
+      transition: 'opacity 0.3s ease',
+    },
+
+    '&:hover': {
+      cursor: params.readOnly ? 'unset' : 'pointer',
+
+      '&::before': {
+        opacity: 1,
+      },
+    },
+
+    '& > *': {
+      position: 'relative',
+      zIndex: 1,
     },
   },
   iconImage: {
     maxWidth: '25px',
   },
   description: {
-    color: params.disabled ? theme.colors.dark[3] : theme.colors.dark[2],
+    color: params.disabled ? '#abacad' : '#dddddd',
     fontSize: 12,
   },
   dropdown: {
     padding: 10,
-    color: theme.colors.dark[0],
+    color: '#fff',
     fontSize: 14,
     maxWidth: 256,
     width: 'fit-content',
-    border: 'none',
+    background: 'linear-gradient(101deg, rgba(132,22,173,0.8) 0%, rgba(102,22,173,0.8) 100%);',
+    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+    // backdropFilter: 'blur(5px)',
+    border: '1px solid rgba(63, 63, 63, 0.85)',
   },
   buttonStack: {
     gap: 4,

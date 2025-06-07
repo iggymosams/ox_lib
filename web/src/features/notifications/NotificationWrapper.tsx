@@ -12,51 +12,56 @@ const useStyles = createStyles((theme) => ({
   container: {
     width: 300,
     height: 'fit-content',
-    backgroundColor: theme.colors.dark[6],
     color: theme.colors.dark[0],
     padding: 12,
     borderRadius: theme.radius.sm,
     fontFamily: 'Roboto',
-    boxShadow: theme.shadows.sm,
+    background: 'radial-gradient(circle, rgb(102 22 173 ) 0%, rgb(0 0 0 ) 100%)',
+    // background: 'linear-gradient(101deg, rgba(132,22,173,0.8) 0%, rgba(102,22,173,0.8) 100%);',
+    boxShadow: '0 25px 30px rgba(132,22,173, 0.3)',
+    // backdropFilter: 'blur(5px)',
+    border: '1px solid rgba(132,22,173, 0.5)',
   },
   title: {
     fontWeight: 500,
     lineHeight: 'normal',
+    color: 'white',
   },
   description: {
     fontSize: 12,
-    color: theme.colors.dark[2],
+    color: '#d2d2d2',
     fontFamily: 'Roboto',
     lineHeight: 'normal',
   },
   descriptionOnly: {
     fontSize: 14,
-    color: theme.colors.dark[2],
+    color: '#d2d2d2',
     fontFamily: 'Roboto',
     lineHeight: 'normal',
   },
 }));
 
-const createAnimation = (from: string, to: string, visible: boolean) => keyframes({
-  from: {
-    opacity: visible ? 0 : 1,
-    transform: `translate${from}`,
-  },
-  to: {
-    opacity: visible ? 1 : 0,
-    transform: `translate${to}`,
-  },
-});
+const createAnimation = (from: string, to: string, visible: boolean) =>
+  keyframes({
+    from: {
+      opacity: visible ? 0 : 1,
+      transform: `translate${from}`,
+    },
+    to: {
+      opacity: visible ? 1 : 0,
+      transform: `translate${to}`,
+    },
+  });
 
 const getAnimation = (visible: boolean, position: string) => {
-  const animationOptions = visible ? '0.2s ease-out forwards' : '0.4s ease-in forwards'
+  const animationOptions = visible ? '0.2s ease-out forwards' : '0.4s ease-in forwards';
   let animation: { from: string; to: string };
 
   if (visible) {
-    animation = position.includes('bottom') ? { from: 'Y(30px)', to: 'Y(0px)' } : { from: 'Y(-30px)', to:'Y(0px)' };
+    animation = position.includes('bottom') ? { from: 'Y(30px)', to: 'Y(0px)' } : { from: 'Y(-30px)', to: 'Y(0px)' };
   } else {
     if (position.includes('right')) {
-      animation = { from: 'X(0px)', to: 'X(100%)' }
+      animation = { from: 'X(0px)', to: 'X(100%)' };
     } else if (position.includes('left')) {
       animation = { from: 'X(0px)', to: 'X(-100%)' };
     } else if (position === 'top-center') {
@@ -68,7 +73,7 @@ const getAnimation = (visible: boolean, position: string) => {
     }
   }
 
-  return `${createAnimation(animation.from, animation.to, visible)} ${animationOptions}`
+  return `${createAnimation(animation.from, animation.to, visible)} ${animationOptions}`;
 };
 
 const durationCircle = keyframes({
@@ -91,7 +96,7 @@ const Notifications: React.FC = () => {
 
     data.showDuration = data.showDuration !== undefined ? data.showDuration : true;
 
-    if (toastId) setToastKey(prevKey => prevKey + 1);
+    if (toastId) setToastKey((prevKey) => prevKey + 1);
 
     // Backwards compat with old notifications
     switch (position) {

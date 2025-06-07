@@ -10,7 +10,10 @@ const useStyles = createStyles((theme) => ({
     width: 350,
     height: 45,
     borderRadius: theme.radius.sm,
-    backgroundColor: theme.colors.dark[5],
+    background: 'rgba(63, 63, 63, 0.2)',
+    boxShadow: '0 4px 30px rgba(0, 0, 0, 0.1)',
+    // backdropFilter: 'blur(5px)',
+    border: '1px solid rgba(63, 63, 63, 0.85)',
     overflow: 'hidden',
   },
   wrapper: {
@@ -24,7 +27,8 @@ const useStyles = createStyles((theme) => ({
   },
   bar: {
     height: '100%',
-    backgroundColor: theme.colors[theme.primaryColor][theme.fn.primaryShade()],
+    background: 'linear-gradient(101deg, rgba(132,22,173,0.8) 0%, rgba(102,22,173,0.8) 100%);',
+    boxShadow: '0px 0px 43px 0px rgba(133,22,173,0.8)',
   },
   labelWrapper: {
     position: 'absolute',
